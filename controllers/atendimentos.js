@@ -3,13 +3,20 @@
 const Atendimento = require('../models/atendimentos')
 
 module.exports = app => {
-    app.get('/atendimentos', (req, res) => res.send("Você está na rota de atendimentos"))
+    app.get('/atendimentos', (res) => {
+        Atendimento.lista(res)
+    })
+
+    app.get('/atendimentos/:id', (req, res) => {
+        console.log(req.params)
+        res.send('OK')
+    })
 
 
     app.post('/atendimentos', (req, res) => {
         const atendimento = req.body
 
-        Atendimento.adiciona(atendimento)
+        Atendimento.adiciona(atendimento, res)
         
     })
 }

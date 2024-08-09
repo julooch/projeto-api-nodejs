@@ -7,9 +7,9 @@ class Atendimento {
         const dataCriacao = moment().format('YYYY-MM-DD HH:MM:SS')
         const data = moment(atendimento.data, 'DD/MM/YYYY').format('YYYY-MM-DD HH:MM:SS')
 
-        const dataEhValida = momento(data).isSameOrAfter(dataCriacao)
+        const dataEhValida = moment(data).isSameOrAfter(dataCriacao)
 
-        const clienteEhValido = atendimento.cliente.lenght >= 5
+        const clienteEhValido = atendimento.cliente.length >= 5
 
         const validacoes = [
             {
@@ -29,10 +29,10 @@ class Atendimento {
         const existemErros = erros.length
 
         if(existemErros){
-            res.status(400).jscon(erros)
+            res.status(400).json(erros)
         }else{
             const atendimentoDatado = { ...atendimento, dataCriacao, data }
-        const sql = 'INSERT INTO Atendimentos SET ?'
+            const sql = 'INSERT INTO Atendimentos SET ?'
 
         conexao.query(sql, atendimentoDatado, atendimento, (erro, resultados) => {
             if (erro) {
@@ -44,6 +44,17 @@ class Atendimento {
     }
         }
 
+    lista(res){
+        const sql = 'SELECT * FROM Atendimentos'
+
+        conexao.query(sql, (erro) => {
+            if(erro){
+                res.status(400).json(erro)
+            }else{
+                res.status(200).json(erro)
+            }
+        })
+    }
         
 }
 
