@@ -3,7 +3,7 @@
 const Atendimento = require('../models/atendimentos')
 
 module.exports = app => {
-    app.get('/atendimentos', (res) => {
+    app.get('/atendimentos', (req, res) => {
         Atendimento.lista(res)
     })
 

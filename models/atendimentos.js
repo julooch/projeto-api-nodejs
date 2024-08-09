@@ -28,34 +28,36 @@ class Atendimento {
 
         const existemErros = erros.length
 
-        if(existemErros){
+        if (existemErros) {
             res.status(400).json(erros)
-        }else{
+        } else {
             const atendimentoDatado = { ...atendimento, dataCriacao, data }
             const sql = 'INSERT INTO Atendimentos SET ?'
 
-        conexao.query(sql, atendimentoDatado, atendimento, (erro, resultados) => {
+            conexao.query(sql, atendimentoDatado, (erro, resultados) => {
+                if (erro) {
+                    res.status(400).json(erro)
+                } else {
+                    res.status(201).json(resultados)
+                }
+            })
+
+        }
+    }
+
+    lista(res) {
+        const sql = 'SELECT * FROM Atendimentos'
+
+        conexao.query(sql, (erro, resultados) => {
             if (erro) {
                 res.status(400).json(erro)
             } else {
-                res.status(201).json(resultados)
+                res.status(200).json(resultados)
             }
         })
-    }
-        }
 
-    lista(res){
-        const sql = 'SELECT * FROM Atendimentos'
+}
 
-        conexao.query(sql, (erro) => {
-            if(erro){
-                res.status(400).json(erro)
-            }else{
-                res.status(200).json(erro)
-            }
-        })
-    }
-        
 }
 
 module.exports = new Atendimento
