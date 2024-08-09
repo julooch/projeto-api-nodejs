@@ -8,8 +8,8 @@ module.exports = app => {
     })
 
     app.get('/atendimentos/:id', (req, res) => {
-        console.log(req.params)
-        res.send('OK')
+        const id = parseInt(req.params.id)
+        Atendimento.buscaporId(id, res)
     })
 
 

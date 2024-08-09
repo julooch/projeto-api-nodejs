@@ -58,6 +58,23 @@ class Atendimento {
 
 }
 
+    buscaporId(id, res){
+        const sql = `SELECT * FROM Atendimentos WHERE id=${id}`
+
+        conexao.query(sql, (erro, resultados) => {
+            if(erro){
+                res.status(400).json(erro)
+            }else {
+                if(resultados.length > 0){
+                    const atendimento = resultados[0]
+                    res.status(200).json(atendimento)
+                }else {
+                    res.status(404).json({ mensagem: 'Atendimento não encontrado' })
+                }
+                
+        }})
+    }
+
 }
 
 module.exports = new Atendimento
